@@ -15,6 +15,7 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+// see https://docs.gradle.org/current/userguide/publishing_setup.html
 publishing {
     publications {
         myLibrary(MavenPublication) {
@@ -34,12 +35,9 @@ repositories {
     mavenCentral()
 }
 
+// see https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:28.0-jre'
+    implementation 'org.slf4j:slf4j-api:1.7.5'
 
     // https://mvnrepository.com/artifact/org.apache.spark/spark-mllib
     implementation group: 'org.apache.spark', name: 'spark-mllib_2.12', version: '3.1.1'
@@ -49,4 +47,5 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.5'
 }
